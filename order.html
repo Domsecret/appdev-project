@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Makcik - Order</title>
+    <link rel="stylesheet" href="Makcik-styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="logo-container">
+        <img src="makcik-logo.jpg" alt="Makcik Logo" class="logo"/>
+      </div>
+      <h1>Makcik</h1>
+      <p class="tagline">Authentic Malaysian Cuisine with Homemade Sambal</p>
+    </header>
+
+    <nav>
+      <ul>
+        <li><a class="nav-btn" href="index.html">Home</a></li>
+        <li><a class="nav-btn" href="menu.html">Menu</a></li>
+        <li><a class="nav-btn active" href="order.html">Order</a></li>
+        <li><a class="nav-btn" href="about.html">About</a></li>
+        <li><a class="nav-btn" href="contact.html">Contact</a></li>
+      </ul>
+    </nav>
+
+    <main>
+      <section id="order">
+        <h2 class="section-title">Order Now</h2>
+
+        <div id="orderContent" class="order-locked">
+          <article class="locked-message">
+            <h3>📋 Contact Information Required</h3>
+            <p>Please provide your contact details so we can process and deliver your order!</p>
+            <br />
+            <button class="cta-button" onclick="showRegisterForm()">Provide Information</button>
+        </article>
+        </div>
+
+        <div id="registerSection" class="register-container">
+          <article class="form-card">
+            <div id="registerSuccess" class="message success">
+              <h3>✓ Successfully Registered!</h3>
+              <p>Welcome to Makcik! Redirecting...</p>
+            </div>
+
+            <form id="registerForm">
+              <label id="regFormLabel">Your Contact Information</label>
+              <p style="margin-bottom: 1rem; color: #666;">Please fill in your details for this order</p>
+              
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" placeholder="Juan" required />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" placeholder="Dela Cruz" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="text" id="email" placeholder="juan@email.com" required />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="text" id="phone" placeholder="09123456789" required />
+              </div>
+              <div class="form-group">
+                <label for="address">Delivery Address</label>
+                <textarea id="address" rows="3" placeholder="123 Main Street, Quezon City" required></textarea>
+              </div>
+
+              <button type="submit" class="submit-btn">Start Ordering</button>
+            </form>
+            <div id="registerError" class="message error">
+              Please check your inputs and try again.
+            </div>
+          </article>
+        </div>
+
+        <div id="infoConfirmModal" class="modal">
+          <div class="modal-content">
+            <h3>✓ Confirm Your Information</h3>
+            <p style="margin-bottom: 1rem;">Please verify your contact details are correct:</p>
+            <div style="text-align: left; background: #f7f4ef; padding: 1rem; border-radius: 8px; margin-bottom: 1.5rem;">
+              <p><strong>Name:</strong> <span id="confirmName"></span></p>
+              <p><strong>Email:</strong> <span id="confirmEmail"></span></p>
+              <p><strong>Phone:</strong> <span id="confirmPhone"></span></p>
+              <p><strong>Address:</strong> <span id="confirmAddress"></span></p>
+            </div>
+            <div class="modal-buttons">
+              <button class="btn-confirm" onclick="confirmInformation()">Confirm & Continue</button>
+              <button class="btn-cancel" onclick="closeInfoModal()">Edit Information</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="orderFormSection" class="order-form-container">
+          <div class="order-grid">
+            <div class="order-column">
+              <article class="info-card">
+                <h3>👤 Your Information</h3>
+                <p><strong>Name:</strong> <span id="displayName"></span></p>
+                <p><strong>Email:</strong> <span id="displayEmail"></span></p>
+                <p><strong>Phone:</strong> <span id="displayPhone"></span></p>
+                <p><strong>Address:</strong> <span id="displayAddress"></span></p>
+              </article>
+
+              <article class="form-card">
+                <h3>😋 Build Your Order</h3>
+                <div id="orderSuccess" class="message success">
+                  <h3>Added to Cart!</h3>
+                  <p>Item successfully added to your order.</p>
+                </div>
+
+                <form id="orderForm">
+                  <div class="form-group">
+                    <label for="orderItem">Select Dish</label>
+                    <select id="orderItem" required>
+                      <option value="">Choose your dish...</option>
+                      <optgroup label="🍛 Nasi Lemak">
+                        <option value="Nasi Lemak Biasa" data-price="165">Nasi Lemak Biasa - ₱165</option>
+                        <option value="Nasi Lemak Ayam (Wings)" data-price="198">Nasi Lemak Ayam (Wings) - ₱198</option>
+                        <option value="Nasi Lemak Ayam (Thigh)" data-price="198">Nasi Lemak Ayam (Thigh) - ₱198</option>
+                        <option value="Nasi Lemak Ayam (Legs)" data-price="198">Nasi Lemak Ayam (Legs) - ₱198</option>
+                        <option value="Nasi Lemak Ikan" data-price="195">Nasi Lemak Ikan - ₱195</option>
+                        <option value="Nasi Lemak Sambal Udang" data-price="195">🌶️ Nasi Lemak Sambal Udang - ₱195</option>
+                        <option value="Nasi Lemak Sambal Sotong" data-price="205">🌶️ Nasi Lemak Sambal Sotong - ₱205</option>
+                        <option value="Nasi Lemak Beef Rendang" data-price="235">🌶️ Nasi Lemak Beef Rendang - ₱235</option>
+                      </optgroup>
+                      <optgroup label="🍛 Nasi Goreng">
+                        <option value="Nasi Goreng" data-price="205">Nasi Goreng - ₱205</option>
+                        <option value="Nasi Goreng Ayam" data-price="255">Nasi Goreng Ayam - ₱255</option>
+                      </optgroup>
+                      <optgroup label="🌶️ Extras & Add-ons">
+                        <option value="Sambal Jar (120ml)" data-price="145">🌶️ Sambal Jar (120ml) - ₱145</option>
+                        <option value="Extra Coconut Rice" data-price="30">🍚 Extra Coconut Rice - ₱30</option>
+                        <option value="Extra Sambal" data-price="30">🌶️ Extra Sambal - ₱30</option>
+                      </optgroup>
+                    </select>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="quantity">Quantity</label>
+                    <input type="number" id="quantity" min="1" value="1" required />
+                  </div>
+
+                  <div class="form-group">
+                    <label for="notes">Special Instructions</label>
+                    <textarea id="notes" rows="2" placeholder="e.g., Extra spicy..."></textarea>
+                  </div>
+
+                  <div class="total-box">
+                    <strong>Item Total:</strong>
+                    <span id="totalPrice">₱0</span>
+                  </div>
+
+                  <button type="submit" class="submit-btn">Add to Cart</button>
+                </form>
+              </article>
+            </div>
+
+            <div class="cart-column">
+              <article class="cart-card">
+                <h3>🛒 Your Cart</h3>
+                <div id="cartItems" class="cart-items"></div>
+
+                <div id="cartSummary" class="cart-summary">
+                    <div class="form-group">
+                        <label for="orderType">Order Type</label>
+                        <select id="orderType">
+                            <option value="delivery">Delivery (₱50)</option>
+                            <option value="pickup">Pickup (₱0)</option>
+                        </select>
+                    </div>
+                    
+                    <div id="paymentMethodSection" class="form-group" style="margin-top: 1rem;">
+                        <label for="paymentMethod">Payment Method</label>
+                        <select id="paymentMethod">
+                            <option value="cash">Cash on Delivery</option>
+                            <option value="gcash">GCash</option>
+                        </select>
+                    </div>
+                    
+                    <div id="gcashDetails" class="gcash-details">
+                        <p><strong>GCash Number:</strong> 0927 432 4665</p>
+                        <p><strong>Account Name:</strong> Makcik PH</p>
+                        <div class="form-group" style="margin-top: 1rem;">
+                            <label for="gcashProof" style="color: var(--accent-gold);">Upload Payment Proof *</label>
+                            <input type="file" id="gcashProof" accept="image/*" style="padding: 0.5rem; background: rgba(255,255,255,0.1); color: white;">
+                            <p id="fileName" style="font-size: 0.8rem; margin-top: 0.5rem; color: var(--accent-gold);"></p>
+                        </div>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="cartSubtotal">₱0</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Delivery Fee:</span>
+                        <span id="deliveryFee">₱50</span>
+                    </div>
+                    <div class="summary-total">
+                        <strong>Grand Total:</strong>
+                        <strong id="cartGrandTotal">₱50</strong>
+                    </div>
+                    
+                    <button class="finalize-btn" onclick="finalizeOrder()">Finalize Order</button>
+                </div>
+              </article>
+            </div>
+          </div>
+        </div>
+
+        <div id="confirmModal" class="modal">
+          <div class="modal-content">
+            <h3>Confirm Your Order</h3>
+            <p>Are you sure you want to send this order to the restaurant for processing?</p>
+            <div class="modal-buttons">
+              <button class="btn-confirm" onclick="confirmOrder()">Yes, Send Order</button>
+              <button class="btn-cancel" onclick="closeModal()">Cancel</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="successModal" class="modal">
+          <div class="modal-content receipt-modal-content">
+            <div id="receiptContainer"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>© 2025 Makcik - Authentic Malaysian Cuisine | Quezon City, Philippines</p>
+    </footer>
+    <script src="Makcik-script.js" defer></script>
+  </body>
+</html>
