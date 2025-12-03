@@ -1,28 +1,21 @@
-// Data Storage Keys
 const STORAGE_CART_KEY = 'makcik_cart_v1';
 const STORAGE_USER_KEY = 'makcik_user_v1';
 
-// Form Elements
 const registerForm = document.getElementById('registerForm');
 const orderForm = document.getElementById('orderForm');
 
-// State Variables (Initialized from LocalStorage)
 let cart = JSON.parse(localStorage.getItem(STORAGE_CART_KEY)) || [];
 let customerData = JSON.parse(localStorage.getItem(STORAGE_USER_KEY)) || {};
 let tempCustomerData = {};
 
-// Validation patterns
-const namePattern = /^[A-Z][a-z]{1,}(?: [A-Z][a-z]{1,})*$/; // Allows spaces
+const namePattern = /^[A-Z][a-z]{1,}(?: [A-Z][a-z]{1,})*$/;
 const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
 const phonePattern = /^(09|\+639)\d{9}$/;
 const addressPattern = /^.{5,}$/;
 
-// --- INITIALIZATION ---
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Update cart display immediately on load
     updateCart();
 
-    // 2. If on the Order Page, handle the "Locked/Unlocked" state
     const orderContent = document.getElementById('orderContent');
     const orderFormSection = document.getElementById('orderFormSection');
     const displayFields = {
@@ -33,12 +26,10 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     if (orderContent && orderFormSection) {
-        // If we have saved customer data, unlock the order form automatically
         if (customerData.firstName && customerData.phone) {
             orderContent.style.display = 'none';
             orderFormSection.style.display = 'block';
             
-            // Fill display fields
             if(displayFields.name) displayFields.name.textContent = `${customerData.firstName} ${customerData.lastName}`;
             if(displayFields.email) displayFields.email.textContent = customerData.email;
             if(displayFields.phone) displayFields.phone.textContent = customerData.phone;
@@ -46,14 +37,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // 3. Setup Review Slideshow (if on Home page)
     if (document.getElementById('reviewsBox')) {
         startReviewSlideshow();
     }
 });
 
-
-// --- FIELD VALIDATION ---
 const fields = {
     firstName: document.getElementById('firstName'),
     lastName: document.getElementById('lastName'),
@@ -77,7 +65,6 @@ validateField(fields.phone, phonePattern);
 validateField(fields.address, addressPattern);
 
 
-// --- REGISTRATION LOGIC ---
 function showRegisterForm() {
     document.getElementById('orderContent').style.display = 'none';
     document.getElementById('registerSection').style.display = 'block';
@@ -87,7 +74,6 @@ if (registerForm) {
     registerForm.addEventListener('submit', (e) => {
         e.preventDefault();
 
-        // Check Validity
         const fNameValid = namePattern.test(fields.firstName.value);
         const lNameValid = namePattern.test(fields.lastName.value);
         const emailValid = emailPattern.test(fields.email.value);
@@ -103,7 +89,6 @@ if (registerForm) {
                 address: fields.address.value
             };
 
-            // Show Confirm Modal
             document.getElementById('confirmName').textContent = `${tempCustomerData.firstName} ${tempCustomerData.lastName}`;
             document.getElementById('confirmEmail').textContent = tempCustomerData.email;
             document.getElementById('confirmPhone').textContent = tempCustomerData.phone;
@@ -117,7 +102,6 @@ if (registerForm) {
 }
 
 function confirmInformation() {
-    // Save to State and LocalStorage
     customerData = { ...tempCustomerData };
     localStorage.setItem(STORAGE_USER_KEY, JSON.stringify(customerData));
 
@@ -126,7 +110,7 @@ function confirmInformation() {
     document.getElementById('registerForm').style.display = 'none';
 
     setTimeout(() => {
-        window.location.reload(); // Reload to trigger the "Unlocked" state logic in DOMContentLoaded
+        window.location.reload(); 
     }, 1500);
 }
 
@@ -134,8 +118,6 @@ function closeInfoModal() {
     document.getElementById('infoConfirmModal').style.display = 'none';
 }
 
-
-// --- CART & ORDERING LOGIC ---
 const orderItem = document.getElementById('orderItem');
 const quantity = document.getElementById('quantity');
 const totalPrice = document.getElementById('totalPrice');
@@ -158,7 +140,6 @@ function updateTotalPrice() {
 if(orderItem) orderItem.addEventListener('change', updateTotalPrice);
 if(quantity) quantity.addEventListener('input', updateTotalPrice);
 
-// Add to Cart
 if (orderForm) {
     orderForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -174,15 +155,13 @@ if (orderForm) {
         };
 
         cart.push(newItem);
-        localStorage.setItem(STORAGE_CART_KEY, JSON.stringify(cart)); // Save Cart
+        localStorage.setItem(STORAGE_CART_KEY, JSON.stringify(cart)); 
         
         updateCart();
         
-        // UI Feedback
         const successMsg = document.getElementById('orderSuccess');
         successMsg.style.display = 'block';
         
-        // Reset Form
         quantity.value = 1;
         document.getElementById('notes').value = '';
         orderItem.selectedIndex = 0;
@@ -226,7 +205,6 @@ function updateCart() {
         
         cartItemsDiv.innerHTML = cartHTML;
         
-        // Update Summary if it exists
         if(cartSummary) {
             cartSummary.style.display = 'block';
             const orderType = document.getElementById('orderType');
@@ -247,14 +225,13 @@ function removeItem(index) {
     updateCart();
 }
 
-// Order Type & Payment Logic
 const orderType = document.getElementById('orderType');
 const paymentMethod = document.getElementById('paymentMethod');
 const gcashProofInput = document.getElementById('gcashProof');
 
 if(orderType) {
     orderType.addEventListener('change', () => {
-        updateCart(); // Recalculate totals
+        updateCart();
         togglePaymentMethod();
     });
 }
@@ -263,7 +240,6 @@ if(paymentMethod) {
     paymentMethod.addEventListener('change', toggleGCashDetails);
 }
 
-// File Upload Visual
 if(gcashProofInput) {
     gcashProofInput.addEventListener('change', (e) => {
         const fileName = e.target.files[0] ? e.target.files[0].name : '';
@@ -292,7 +268,6 @@ function toggleGCashDetails() {
     gcashDetails.style.display = (isGCash && isDelivery) ? 'block' : 'none';
 }
 
-// Finalization
 function finalizeOrder() {
     if (cart.length === 0) {
         alert('Cart is empty!');
@@ -310,7 +285,6 @@ function finalizeOrder() {
 }
 
 function confirmOrder() {
-    // Generate Receipt Data
     const isPickup = orderType.value === 'pickup';
     const deliveryFee = isPickup ? 0 : 50;
     
@@ -349,7 +323,6 @@ function confirmOrder() {
     document.getElementById('confirmModal').style.display = 'none';
     document.getElementById('successModal').style.display = 'flex';
 
-    // Clear Cart
     cart = [];
     localStorage.removeItem(STORAGE_CART_KEY);
     updateCart();
@@ -364,9 +337,7 @@ function closeModal() {
 }
 
 
-// --- REVIEW SLIDESHOW ---
 function startReviewSlideshow() {
-    // FULL 18 REVIEWS
     const reviews = [
         {
             author: "Mukz Hadain",
@@ -463,8 +434,8 @@ function startReviewSlideshow() {
     }, 5000);
 }
 
-// Window click to close modals
 window.onclick = function(event) {
     if (event.target === document.getElementById('successModal')) closeSuccessModal();
     if (event.target === document.getElementById('infoConfirmModal')) closeInfoModal();
+
 }
