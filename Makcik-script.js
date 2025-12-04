@@ -1,12 +1,5 @@
-const STORAGE_CART_KEY = 'makcik_cart_v1';
-const STORAGE_USER_KEY = 'makcik_user_v1';
-
 const registerForm = document.getElementById('registerForm');
 const orderForm = document.getElementById('orderForm');
-
-let cart = JSON.parse(localStorage.getItem(STORAGE_CART_KEY)) || [];
-let customerData = JSON.parse(localStorage.getItem(STORAGE_USER_KEY)) || {};
-let tempCustomerData = {};
 
 const namePattern = /^[A-Z][a-z]{1,}(?: [A-Z][a-z]{1,})*$/;
 const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -439,3 +432,4 @@ window.onclick = function(event) {
     if (event.target === document.getElementById('infoConfirmModal')) closeInfoModal();
 
 }
+
