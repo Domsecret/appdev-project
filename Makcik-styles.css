@@ -799,18 +799,17 @@ textarea {
     position: relative;
     width: 100%;
     max-width: 100%;
-    overflow: hidden;
+    overflow: visible;
     min-height: 500px;
 }
 
 .frameWrapper iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative;
     width: 100%;
     height: 100%;
     border: 0;
     min-height: 500px;
+    display: block;
 }
 
 .score {
@@ -831,15 +830,17 @@ textarea {
     width: 100%;
     border-radius: 8px;
     border: 0;
+    display: block;
 }
 
 .contact-grid article {
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
 }
 
 .contact-grid .frameWrapper {
     margin: 0 auto;
+    overflow: visible;
 }
 
 .reviews-box {
@@ -1136,14 +1137,17 @@ footer {
 
     .contact-grid iframe {
         width: 100% !important;
-        height: 500px !important;
-        min-height: 500px !important;
+        max-width: 100% !important;
+        height: 700px !important;
+        min-height: 700px !important;
     }
 
     .frameWrapper {
         width: 100% !important;
-        min-height: 500px !important;
+        max-width: 100% !important;
+        min-height: 700px !important;
         height: auto !important;
         padding-bottom: 0 !important;
+        overflow: visible !important;
     }
 }
