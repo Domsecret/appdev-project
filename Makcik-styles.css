@@ -565,14 +565,16 @@ textarea {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
+    overflow-y: auto;
 }
 
 .modal-content {
     background-color: var(--white);
-    margin: 15% auto;
+    margin: 2rem auto;
     padding: 2rem;
     border-radius: 15px;
     max-width: 500px;
+    width: 90%;
     text-align: center;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
 }
@@ -597,7 +599,7 @@ textarea {
 #successModal .modal-content, 
 #confirmModal .modal-content, 
 #infoConfirmModal .modal-content {
-    margin: auto;
+    margin: 2rem auto;
     max-height: 85vh;
     overflow-y: auto;
     width: 90%;
@@ -612,6 +614,7 @@ textarea {
     padding: 0;
     overflow: hidden;
     position: relative;
+    margin: 2rem auto;
 }
 
 .receipt-header {
@@ -650,6 +653,7 @@ textarea {
     justify-content: space-between;
     margin-bottom: 0.5rem;
     font-size: 0.95rem;
+    gap: 1rem;
 }
 
 .receipt-totals {
@@ -689,12 +693,12 @@ textarea {
     color: #aaa;
     cursor: pointer;
     transition: color 0.3s;
+    z-index: 10;
 }
 
 .close-modal-x:hover {
     color: var(--accent-red);
 }
-
 
 .gcash-details {
     background-color: rgba(255, 255, 255, 0.1);
@@ -790,20 +794,23 @@ textarea {
     text-align: center;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
 }
+
 .frameWrapper {
-  position: relative;
-  padding-bottom: 70.25%;
-  padding-top: 25px;
-  height: 0;
-  text-align: center;
+    position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 25px;
+    height: 0;
+    overflow: hidden;
 }
+
 .frameWrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
+
 .score {
     font-size: 2.5rem;
     font-weight: 700;
@@ -863,6 +870,32 @@ footer {
 }
 
 @media (max-width: 768px) {
+    main {
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .hero {
+        padding: 3rem 1.5rem;
+        border-radius: 15px;
+    }
+
+    .hero h2 {
+        font-size: 2rem;
+    }
+
+    .hero p {
+        font-size: 1.1rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1.1rem;
+    }
+
     .contact-grid iframe {
         width: 100% !important;
         height: 300px !important;
@@ -876,28 +909,40 @@ footer {
         width: 100%;
         padding: 1.5rem;
     }
+
+    .cart-card {
+        position: static;
+        margin-bottom: 2rem;
+    }
+
+    .menu-category-overlay {
+        padding: 1.5rem;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    }
+
+    .locked-message {
+        padding: 2rem;
+    }
 }
 
 @media (max-width: 640px) {
-    .hero h2 {
-        font-size: 1.8rem;
+    body {
+        font-size: 14px;
     }
-    
-    .section-title {
-        font-size: 2rem;
-    }
-    
-    nav a.nav-btn {
-        padding: 1rem 1.2rem;
-        font-size: 0.9rem;
-    }
-    
-    .menu-grid {
-        grid-template-columns: 1fr;
+
+    header {
+        padding: 1.5rem 1rem;
     }
 
     header h1 {
-        font-size: 2rem;
+        font-size: 1.8rem;
+    }
+
+    .tagline {
+        font-size: 1rem;
     }
 
     .logo-container {
@@ -905,25 +950,170 @@ footer {
         height: 120px;
     }
 
+    nav a.nav-btn {
+        padding: 1rem 1rem;
+        font-size: 0.85rem;
+        letter-spacing: 0.5px;
+    }
+
+    .hero {
+        padding: 2rem 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .hero h2 {
+        font-size: 1.6rem;
+    }
+
+    .hero p {
+        font-size: 1rem;
+    }
+
+    .cta-button {
+        padding: 0.9rem 2rem;
+        font-size: 0.9rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
     .features-grid {
         grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .feature-card {
+        padding: 1.5rem;
+    }
+
+    .feature-icon {
+        font-size: 2rem;
+    }
+
+    .menu-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .menu-category {
+        margin-bottom: 2rem;
+    }
+
+    .menu-category h3 {
+        font-size: 1.5rem;
+    }
+
+    .menu-item {
+        padding: 1.2rem;
+    }
+
+    .menu-item h4 {
+        font-size: 1.1rem;
+    }
+
+    .price {
+        font-size: 1.2rem;
     }
 
     article {
-        padding: 1.5rem;
+        padding: 1.2rem;
+        margin-bottom: 1.5rem;
     }
 
     .modal-content {
         padding: 1.5rem;
-        margin: 20% auto;
+        margin: 1rem auto;
+        width: 95%;
+        border-radius: 12px;
     }
 
     .modal-buttons {
         flex-direction: column;
+        gap: 0.8rem;
     }
 
-    .cart-card {
-        position: static;
+    .btn-confirm, .btn-cancel {
+        padding: 0.9rem;
+    }
+
+    .receipt-modal-content {
+        width: 95%;
+        margin: 1rem auto;
+    }
+
+    .receipt-header {
+        padding: 1.5rem 1rem;
+    }
+
+    .receipt-header .icon {
+        font-size: 3rem;
+    }
+
+    .receipt-body {
+        padding: 1rem;
+    }
+
+    .receipt-item-row {
+        font-size: 0.85rem;
+        flex-wrap: wrap;
+    }
+
+    .locked-message {
+        padding: 1.5rem;
+    }
+
+    .total-box {
+        font-size: 1rem;
+        padding: 0.8rem;
+    }
+
+    .rating-box {
+        padding: 1.5rem;
+    }
+
+    .score {
+        font-size: 2rem;
+    }
+
+    .stars {
+        font-size: 1.2rem;
+    }
+
+    .reviews-box {
+        padding: 1.2rem 1.5rem;
+        margin: 1.5rem auto;
+    }
+
+    #reviewText {
+        font-size: 1rem;
+    }
+
+    footer {
+        padding: 1.5rem 1rem;
+        margin-top: 3rem;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    #regFormLabel {
+        font-size: 1.3rem;
+    }
+
+    input, select, textarea {
+        padding: 0.7rem;
+        font-size: 0.95rem;
+    }
+
+    .submit-btn, .finalize-btn {
+        padding: 0.9rem;
+        font-size: 1rem;
     }
 }
-
